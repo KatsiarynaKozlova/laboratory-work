@@ -28,6 +28,7 @@ void output(wind_rose* rose)
 
 int main()
 {
+
 	setlocale(LC_ALL, "RUSSIAN");
 	cout << "Лабораторная работа #8. GIT\n";
 	cout << "Вариант #6. Wind Rose\n";
@@ -85,8 +86,6 @@ int main()
 		cout << error << "\n";
 	}
 	return 0;
-
-
 }
 
 
