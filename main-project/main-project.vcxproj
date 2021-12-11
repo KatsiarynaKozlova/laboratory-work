@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="file_reader.cpp" />
+    <ClCompile Include="filter_reader.cpp" />
     <ClCompile Include="main-project.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="constants.h" />
     <ClInclude Include="file_reader.h" />
+    <ClInclude Include="filter_reader.h" />
     <ClInclude Include="wind_rose.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

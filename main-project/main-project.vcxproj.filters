@@ -21,6 +21,9 @@
     <ClCompile Include="file_reader.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
+    <ClCompile Include="filter_reader.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt">
@@ -35,6 +38,9 @@
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
     <ClInclude Include="file_reader.h">
+      <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
+    <ClInclude Include="filter_reader.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
   </ItemGroup>
