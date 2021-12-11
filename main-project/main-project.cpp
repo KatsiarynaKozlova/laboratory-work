@@ -12,7 +12,7 @@ using namespace std;
 
 void output(wind_rose* rose)
 {
-
+	//вывод данных
 	cout << "Дата.........:   ";
 	cout << setw(2) << setfill('0') << rose->today.day << "-";
 	cout << setw(2) << setfill('0') << rose->today.month << "-";
