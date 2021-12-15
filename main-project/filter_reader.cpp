@@ -1,49 +1,29 @@
 #include "file_reader.h"
-#include "constants.h"
+#include <cstring>
+#include <iostream>
 
-#include <fstream>
-#include<cstring>
-
-
-date convert(char* str)
+wind_rose** filter(wind_rose* array[], int size, bool (*check)(wind_rose* element), int& result_size)
 {
-    date result;
-    char* context = NULL;
-    char* str_number = strtok_s(str, ".", &context);
-    result.day = atoi(str_number);
-    str_number = strtok_s(NULL, ".", &context);
-    result.month = atoi(str_number);
-    str_number = strtok_s(NULL, ".", &context);
-    result.year = atoi(str_number);
-    return result;
+	wind_rose** result = new wind_rose * [size];
+	result_size = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (check(array[i]))
+		{
+			result[result_size++] = array[i];
+		}
+	}
+	return result;
 }
 
-
-void read(const char* file_name, wind_rose* array[], int& size)
+bool check_book_subscription_by_wind(wind_rose* element)
 {
-    std::ifstream file(file_name);
-    if (file.is_open())
-    {
-        size = 0;
-        char tmp_buffer[MAX_STRING_SIZE];
-        while (!file.eof())
-        {
-            wind_rose* item = new wind_rose;
 
+	return strcmp(element->wind, "North") == 0;
 
-            file >> tmp_buffer;
-            item->today = convert(tmp_buffer);
-            file >> item->speed;
+}
 
-            file.read(tmp_buffer, 1);
-            file.getline(item->wind, MAX_STRING_SIZE);
-            array[size++] = item;
-        }
-        file.close();
-    }
-    else
-    {
-        throw "Error open file";
-    }
-
+bool check_book_subscription_by_speed(wind_rose* element)
+{
+	return element->speed >= 5;
 }
