@@ -12,15 +12,15 @@ using namespace std;
 
 void output(wind_rose* rose)
 {
-	//вывод данных
-	cout << "Дата.........:   ";
+	//ГўГ»ГўГ®Г¤ Г¤Г Г­Г­Г»Гµ
+	cout << "Г„Г ГІГ .........:   ";
 	cout << setw(2) << setfill('0') << rose->today.day << "-";
 	cout << setw(2) << setfill('0') << rose->today.month << "-";
 	cout << setw(4) << setfill('0') << rose->today.year << "\n";
-	cout << "Направление ветра.....:   ";
+	cout << "ГЌГ ГЇГ°Г ГўГ«ГҐГ­ГЁГҐ ГўГҐГІГ°Г .....:   ";
 	cout << rose->wind << "\n";
 
-	cout << "Скорость ветра....:   ";
+	cout << "Г‘ГЄГ®Г°Г®Г±ГІГј ГўГҐГІГ°Г ....:   ";
 	cout << rose->speed << " m/sec\n";
 	cout << "\n";
 	cout << "\n";
@@ -30,16 +30,16 @@ int main()
 {
 
 	setlocale(LC_ALL, "RUSSIAN");
-	cout << "Лабораторная работа #8. GIT\n";
-	cout << "Вариант #6. Wind Rose\n";
-	cout << "Козлова Екатерина Вадимовна\n";
-	cout << "Группа 14\n";
+	cout << "Г‹Г ГЎГ®Г°Г ГІГ®Г°Г­Г Гї Г°Г ГЎГ®ГІГ  #8. GIT\n";
+	cout << "Г‚Г Г°ГЁГ Г­ГІ #6. Wind Rose\n";
+	cout << "ГЉГ®Г§Г«Г®ГўГ  Г…ГЄГ ГІГҐГ°ГЁГ­Г  Г‚Г Г¤ГЁГ¬Г®ГўГ­Г \n";
+	cout << "ГѓГ°ГіГЇГЇГ  14\n";
 	wind_rose* roses[MAX_FILE_ROWS_COUNT];
 	int size;
 	try
 	{
 		read("data.txt", roses, size);
-		cout << "***** РОЗА ВЕТРОВ *****\n\n";
+		cout << "***** ГђГЋГ‡ГЂ Г‚Г…Г’ГђГЋГ‚ *****\n\n";
 		for (int i = 0; i < size; i++)
 		{
 			output(roses[i]);
@@ -47,7 +47,7 @@ int main()
 		bool (*check_function)(wind_rose*);
 
 
-		cout << "Выберите фильтрацию  : ";
+		cout << "Г‚Г»ГЎГҐГ°ГЁГІГҐ ГґГЁГ«ГјГІГ°Г Г¶ГЁГѕ  : ";
 
 		int item;
 
@@ -59,14 +59,21 @@ int main()
 
 
 			check_function = check_book_subscription_by_wind;
-			cout << "*****   Результат фильрации 1    *****\n\n";
+			cout << "*****   ГђГҐГ§ГіГ«ГјГІГ ГІ ГґГЁГ«ГјГ°Г Г¶ГЁГЁ 1    *****\n\n";
 			break;
 		case 2:
 			check_function = check_book_subscription_by_speed;
-			cout << "*****     Результат фильтрации 2    *****\n\n";
+			cout << "*****     ГђГҐГ§ГіГ«ГјГІГ ГІ ГґГЁГ«ГјГІГ°Г Г¶ГЁГЁ 2    *****\n\n";
 			break;
+		case 3: {
+			cout<<"****   Р’С‹Р±РµСЂРёС‚Рµ РјРµСЃСЏС† :   ****\n";
+			 double speeds = process(roses, size, res);
+			 cout << "*****    РЎСЂРµРґРЅСЏСЏ СЃРєРѕСЂРѕСЃС‚СЊ      *****\n\n";
+			cout << speeds << "\n\n";
+			break;
+		}		
 		default:
-			throw " Нет такой фильтрации ";
+			throw " ГЌГҐГІ ГІГ ГЄГ®Г© ГґГЁГ«ГјГІГ°Г Г¶ГЁГЁ ";
 		}
 		int new_size;
 		wind_rose** filtered = filter(roses, size, check_function, new_size);
