@@ -4,6 +4,7 @@
 
 #include "wind_rose.h"
 
-double process(wind_rose* array[], int size, double res);
+double process(wind_rose* array[], int size, int mon);
 
 #endif
+
