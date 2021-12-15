@@ -8,50 +8,50 @@ using namespace std;
 #include"constants.h"
 #include"file_reader.h"
 #include"filter_reader.h"
+#include"processing.h"
 
+            void output(wind_rose * rose)
+            {
 
-void output(wind_rose* rose)
-{
-	//âûâîä äàííûõ
-	cout << "Äàòà.........:   ";
-	cout << setw(2) << setfill('0') << rose->today.day << "-";
-	cout << setw(2) << setfill('0') << rose->today.month << "-";
-	cout << setw(4) << setfill('0') << rose->today.year << "\n";
-	cout << "Íàïðàâëåíèå âåòðà.....:   ";
-	cout << rose->wind << "\n";
-
-	cout << "Ñêîðîñòü âåòðà....:   ";
-	cout << rose->speed << " m/sec\n";
-	cout << "\n";
-	cout << "\n";
-}
-
+            cout << "Дата.........:   ";
+            cout << setw(2) << setfill('0') << rose-> today.day << "-";
+            cout << setw(2) << setfill('0') << rose-> today.month << "-";
+            cout << setw(4) << setfill('0') << rose-> today.year << "\n";
+            cout << "Направление ветра.....:   ";
+            cout << rose->wind << "\n";
+          
+            cout << "Скорость ветра....:   ";
+            cout << rose->speed << " m/sec\n";
+            cout << "\n";
+            cout << "\n";
+        }
+       
 int main()
 {
-
 	setlocale(LC_ALL, "RUSSIAN");
-	cout << "Ëàáîðàòîðíàÿ ðàáîòà #8. GIT\n";
-	cout << "Âàðèàíò #6. Wind Rose\n";
-	cout << "Êîçëîâà Åêàòåðèíà Âàäèìîâíà\n";
-	cout << "Ãðóïïà 14\n";
+	cout << "Лабораторная работа #8. GIT\n";
+	cout << "Вариант #6. Wind Rose\n";
+	cout << "Козлова Екатерина Вадимовна\n";
+	cout << "Группа 14\n";
 	wind_rose* roses[MAX_FILE_ROWS_COUNT];
 	int size;
 	try
 	{
 		read("data.txt", roses, size);
-		cout << "***** ÐÎÇÀ ÂÅÒÐÎÂ *****\n\n";
+		cout << "***** РОЗА ВЕТРОВ *****\n\n";
 		for (int i = 0; i < size; i++)
 		{
 			output(roses[i]);
 		}
-		bool (*check_function)(wind_rose*);
+		bool (*check_function)(wind_rose*) = NULL;
 
 
-		cout << "Âûáåðèòå ôèëüòðàöèþ  : ";
+		cout << "Выберите фильтрацию  : ";
 
 		int item;
-
+		//double res=0;
 		cin >> item;
+		int mon;
 		cout << '\n';
 		switch (item)
 		{
@@ -59,40 +59,46 @@ int main()
 
 
 			check_function = check_book_subscription_by_wind;
-			cout << "*****   Ðåçóëüòàò ôèëüðàöèè 1    *****\n\n";
+			cout << "*****   Результат фильрации 1    *****\n\n";
 			break;
 		case 2:
 			check_function = check_book_subscription_by_speed;
-			cout << "*****     Ðåçóëüòàò ôèëüòðàöèè 2    *****\n\n";
+			cout << "*****     Результат фильтрации 2    *****\n\n";
 			break;
 		case 3: {
 			cout<<"****   Выберите месяц :   ****\n";
-			 double speeds = process(roses, size, res);
-			 cout << "*****    Средняя скорость      *****\n\n";
+			cin >> mon;
+			 double speeds = process(roses, size, mon);
+			 cout << "*****    Средняя скорость за месяц    *****\n\n";
 			cout << speeds << "\n\n";
 			break;
-		}		
+		}
 		default:
-			throw " Íåò òàêîé ôèëüòðàöèè ";
+			throw " Нет такой фильтрации ";
 		}
-		int new_size;
-		wind_rose** filtered = filter(roses, size, check_function, new_size);
-		for (int i = 0; i < new_size; i++)
+		if (check_function)
 		{
-			output(filtered[i]);
+
+			int new_size;
+			wind_rose** filtered = filter(roses, size, check_function, new_size);
+			for (int i = 0; i < new_size; i++)
+			{
+				output(filtered[i]);
+			}
+			delete[] filtered;
 		}
-		delete[] filtered;
-		for (int i = 0; i < size; i++)
-		{
-			delete roses[i];
-		}
+			for (int i = 0; i < size; i++)
+			{
+				delete roses[i];
+			}
+		
 	}
 
-	catch (const char* error)
-	{
-		cout << error << "\n";
-	}
-	return 0;
+		catch (const char* error)
+		{
+			cout << error << "\n";
+		}
+		return 0;
+
+	
 }
-
-
